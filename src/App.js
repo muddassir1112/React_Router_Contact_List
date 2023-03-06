@@ -1,24 +1,42 @@
-import logo from './logo.svg';
-import './App.css';
-
+import { createContext, useState } from "react";
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import "./App.css";
+import { Delete } from "./component/destroy/Delete";
+import EditContact from "./component/edit/EditContact";
+import LandingPage from "./component/landingpage/LandingPage";
+import { SideNavigation } from "./component/navbar/SideNavigation";
+import { NewContact } from "./component/new/NewContact";
+export const UserContext = createContext();
 function App() {
+  const [contactDetails, setContactDetails] = useState([]); //context state
+  const router = createBrowserRouter([
+    {
+      path: "/",
+      element: <SideNavigation />,
+      children: [
+        {
+          path: "/landing",
+          element: <LandingPage />,
+        },
+        {
+          path: "/destroy",
+          element: <Delete />,
+        },
+        {
+          path: "/edit",
+          element: <EditContact />,
+        },
+        {
+          path: "/addContact",
+          element: <NewContact />,
+        },
+      ],
+    },
+  ]);
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <UserContext.Provider value={{ contactDetails, setContactDetails }}>
+      <RouterProvider router={router} />
+    </UserContext.Provider>
   );
 }
 
