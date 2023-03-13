@@ -3,6 +3,7 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import "./App.css";
 import { Delete } from "./component/destroy/Delete";
 import EditContact from "./component/edit/EditContact";
+import { ErrorPage } from "./component/error/ErrorPage";
 import LandingPage from "./component/landingpage/LandingPage";
 import { SideNavigation } from "./component/navbar/SideNavigation";
 import { NewContact } from "./component/new/NewContact";
@@ -13,6 +14,7 @@ function App() {
     {
       path: "/",
       element: <SideNavigation />,
+      errorElement: <ErrorPage />,
       children: [
         {
           path: "/landing",

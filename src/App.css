@@ -1,4 +1,23 @@
 .landing {
   margin-left: 450px;
-  margin-top: 50px;
+  /* margin-top: 50px; */
+}
+
+.sidebar {
+  /* margin: 0;
+  padding: 0; */
+  /* width: 370px;
+  background-color: #f1f1f1; */
+  position: fixed;
+  height: 100%;
+  overflow: auto;
+}
+
+.contacts-links {
+  line-height: 1.6;
+}
+.contacts-links:hover {
+  border-radius: 5px;
+  background-color: #3a62f4;
+  color: white;
 }

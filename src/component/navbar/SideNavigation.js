@@ -3,8 +3,8 @@ import { Link, Outlet } from "react-router-dom";
 import { UserContext } from "../../App";
 
 export const SideNavigation = () => {
-  const data = useContext(UserContext);//useContext Hook
-  const [details, setDetails] = useState([]);//temporary array to print the search result
+  const data = useContext(UserContext); //useContext Hook
+  const [details, setDetails] = useState([]); //temporary array to print the search result
   const searchRef = useRef(); //ref to get search input
   const loaderRef = useRef(); //ref to display loader
   // useEffect hook to get data from local storage if it exist
@@ -14,6 +14,7 @@ export const SideNavigation = () => {
       setDetails(JSON.parse(localStorage.getItem("Users")));
     } else fetchContacts();
   }, [data.contactDetails.length]);
+  
   //function to get data from api
   const fetchContacts = () => {
     loaderRef.current.style.display = "block";
@@ -43,7 +44,7 @@ export const SideNavigation = () => {
     let temp = [];
     if (startsWithAlphabet.length > 2) {
       for (let i = 0; i < data.contactDetails.length; i++) {
-        if (data.contactDetails[i].name.startsWith(startsWithAlphabet)) {
+        if (data.contactDetails[i].name.includes(startsWithAlphabet)) {
           temp.push(data.contactDetails[i]);
         }
       }
@@ -54,14 +55,8 @@ export const SideNavigation = () => {
   };
   return (
     <>
-      <div
-        className="offcanvas offcanvas-start show"
-        data-bs-backdrop="static"
-        tabIndex="-1"
-        id="staticBackdrop"
-        aria-labelledby="staticBackdropLabel"
-      >
-        <div className="offcanvas-body">
+      <aside className="sidebar">
+        <nav className="navbar bg-light">
           <div className="card">
             <div className="card-body mt-3">
               <div className="input-group mb-3">
@@ -88,30 +83,37 @@ export const SideNavigation = () => {
                   New
                 </Link>
               </div>
+              <hr></hr>
             </div>
-            <ul className="list-group list-group-flush">
-              {details.length > 0 ? (
-                details.map((ele, index) => (
-                  <Link to="/landing" key={index} state={{ from: ele }}>
-                    <li
-                      className="list-group-item"
-                      style={{ textTransform: "capitalize" }}
+            {details.length !== 0 ? (
+              <div className="container-fluid border-0">
+                {details.map((ele, index) => (
+                  <ul className="list-group list-group-flush" key={index}>
+                    <Link
+                      to="/landing"
+                      state={{ from: ele }}
+                      style={{ textDecoration: "none" }}
                     >
-                      {ele.name}
-                    </li>
-                  </Link>
-                ))
-              ) : (
-                <div className="d-flex justify-content-center" ref={loaderRef}>
-                  <div className="spinner-border" role="status">
-                    <span className="visually-hidden">Loading...</span>
-                  </div>
+                      <li
+                        className="list-group-item border-0 contacts-links"
+                        style={{ textTransform: "capitalize" }}
+                      >
+                        {ele.name}
+                      </li>
+                    </Link>
+                  </ul>
+                ))}
+              </div>
+            ) : (
+              <div className="d-flex justify-content-center" ref={loaderRef}>
+                <div className="spinner-border" role="status">
+                  <span className="visually-hidden">Loading...</span>
                 </div>
-              )}
-            </ul>
+              </div>
+            )}
           </div>
-        </div>
-      </div>
+        </nav>
+      </aside>
       <div className="detail">
         <Outlet />
       </div>

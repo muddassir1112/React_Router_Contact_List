@@ -26,6 +26,7 @@ const LandingPage = () => {
   return (
     <>
       <div className="landing">
+        <h2 className="text-left pt-3 pb-3 fs-1 text-danger"> Contact Details</h2>
         <div className="card mb-3 shadow border-0" style={{ width: "600px" }}>
           <div className="row g-0">
             <div className="col-md-4">
@@ -38,7 +39,7 @@ const LandingPage = () => {
             <div className="col-md-8 ps-4">
               <div className="card-body">
                 <h3
-                  className="card-title"
+                  className="card-title fw-bold"
                   style={{ textTransform: "capitalize" }}
                 >
                   {from.name}{" "}
