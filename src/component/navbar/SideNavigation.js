@@ -14,8 +14,7 @@ export const SideNavigation = () => {
       setDetails(JSON.parse(localStorage.getItem("Users")));
     } else fetchContacts();
   }, [data.contactDetails.length]);
-  
-  //function to get data from api
+   //function to get data from api
   const fetchContacts = () => {
     loaderRef.current.style.display = "block";
     fetch("https://api.github.com/users")
@@ -85,14 +84,15 @@ export const SideNavigation = () => {
               </div>
               <hr></hr>
             </div>
-            {details.length !== 0 ? (
+            {details.length > 0 ? (
               <div className="container-fluid border-0">
-                {details.map((ele, index) => (
-                  <ul className="list-group list-group-flush" key={index}>
+                <ul className="list-group list-group-flush">
+                  {details.map((ele, index) => (
                     <Link
                       to="/landing"
                       state={{ from: ele }}
                       style={{ textDecoration: "none" }}
+                      key={index}
                     >
                       <li
                         className="list-group-item border-0 contacts-links"
@@ -101,8 +101,8 @@ export const SideNavigation = () => {
                         {ele.name}
                       </li>
                     </Link>
-                  </ul>
-                ))}
+                  ))}
+                </ul>
               </div>
             ) : (
               <div className="d-flex justify-content-center" ref={loaderRef}>
